@@ -6,13 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ImagesFragment extends Fragment implements ImagesView, OnItemClickL
 
 
     @Bind(R.id.progressBar)
-    ContentLoadingProgressBar progressBar;
+    ProgressBar progressBar;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.container)

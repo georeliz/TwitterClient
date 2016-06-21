@@ -7,10 +7,10 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 
+import edu.galileo.twitterclient.hashtags.di.DaggerHashtagsComponent;
 import edu.galileo.twitterclient.hashtags.di.HashtagsModule;
 import edu.galileo.twitterclient.hashtags.di.HashtagsComponent;
 import edu.galileo.twitterclient.hashtags.ui.HashtagsView;
-import edu.galileo.twitterclient.images.adapters.OnItemClickListener;
 import edu.galileo.twitterclient.images.di.DaggerImagesCompenent;
 import edu.galileo.twitterclient.images.di.ImagesCompenent;
 import edu.galileo.twitterclient.images.di.ImagesModule;
@@ -38,8 +38,11 @@ public class TwiiterClientApp extends Application {
                 .imagesModule(new ImagesModule(view, clickListener)).build();
     }
 
+
     public HashtagsComponent getHashtagsComponent(HashtagsView view, edu.galileo.twitterclient.hashtags.adapters.OnItemClickListener clickListener){
-        return DaggerHashtagsCompenent.builder().libsModule(new LibsModule(null))
-                .hashtagModule(new HashtagsModule(view, clickListener)).build();
+        return DaggerHashtagsComponent.builder().libsModule(new LibsModule(null))
+                .hashtagsModule(new HashtagsModule(view, clickListener)).build();
     }
+
+
 }

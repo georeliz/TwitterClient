@@ -3,6 +3,7 @@ package edu.galileo.twitterclient.hashtags;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.models.HashtagEntity;
 import com.twitter.sdk.android.core.models.Tweet;
 
 import java.util.ArrayList;
@@ -36,22 +37,18 @@ public class HashtagsRepositoryImpl implements HashtagsRepository {
             public void success(Result<List<Tweet>> result) {
                 List<Hashtag> items = new ArrayList<Hashtag>();
                 for (Tweet tweet : result.data){
-                    if (containsImages(tweet)){
+                    if (containsHashtags(tweet)){
                         Hashtag tweetModel = new Hashtag();
 
                         tweetModel.setId(tweet.idStr);
                         tweetModel.setFavoriteCount(tweet.favoriteCount);
+                        tweetModel.setTweetText(tweet.text);
 
-                        String tweetText = tweet.text;
-                        int index = tweetText.indexOf("http");
-                        if (index > 0){
-                            tweetText = tweetText.substring(0, index);
+                        List<String> hashtags = new ArrayList<String>();
+                        for (HashtagEntity hashtagEntity : tweet.entities.hashtags){
+                            hashtags.add(hashtagEntity.text);
                         }
-                        tweetModel.setTweetText(tweetText);
-
-                        MediaEntity currentPhoto = tweet.entities.media.get(0);
-                        String imageUrl = currentPhoto.mediaUrl;
-                        tweetModel.setImageURL(imageUrl);
+                        tweetModel.setHashtags(hashtags);
 
                         items.add(tweetModel);
 
@@ -75,8 +72,8 @@ public class HashtagsRepositoryImpl implements HashtagsRepository {
         client.getTimeLinseService().homeTimeline(TWEET_COUNT, true, true, true, true,callback);
     }
 
-    private boolean containsImages(Tweet tweet){
-        return tweet.entities != null && tweet.entities.media != null && !tweet.entities.media.isEmpty();
+    private boolean containsHashtags(Tweet tweet){
+        return tweet.entities != null && tweet.entities.hashtags != null && !tweet.entities.hashtags.isEmpty();
 
     }
 
