@@ -20,6 +20,7 @@ import edu.galileo.twitterclient.lib.base.ImageLoader;
  */
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder> {
 
+
     private List<Image> dataset;
     private ImageLoader imageLoader;
     private OnItemClickListener clickListener;
@@ -41,10 +42,12 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
         Image imageTweet = dataset.get(position);
         holder.setOnClickListener(imageTweet, clickListener);
         holder.txtTweet.setText(imageTweet.getTweetText());
+        holder.txtFav.setText(String.valueOf(imageTweet.getFavoriteCount()));
         imageLoader.load(holder.imgMedia, imageTweet.getImageURL());
 
     }
-    public void setItems(List<Image> newItems){
+
+    public void setItems(List<Image> newItems) {
         dataset.addAll(newItems);
         notifyDataSetChanged();
 
@@ -60,6 +63,9 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
         ImageView imgMedia;
         @Bind(R.id.txtTweet)
         TextView txtTweet;
+        @Bind(R.id.txtFav)
+        TextView txtFav;
+
         private View view;
 
         public ViewHolder(View itemView) {

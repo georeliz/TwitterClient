@@ -46,11 +46,6 @@ public class HashtagsFragment extends Fragment implements HashtagsView, OnItemCl
     @Inject
     HashtagsPresenter presenter;
 
-    public HashtagsFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

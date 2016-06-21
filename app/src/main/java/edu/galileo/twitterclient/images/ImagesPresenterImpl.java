@@ -53,7 +53,7 @@ public class ImagesPresenterImpl implements ImagesPresenter{
         String errorMsg = event.getError();
         if(view != null){
             view.showElements();
-            view.hideElements();
+            view.hideProgress();
 
             if (errorMsg != null){
                 view.onError(errorMsg);
@@ -61,8 +61,6 @@ public class ImagesPresenterImpl implements ImagesPresenter{
                 view.setContent(event.getImages());
             }
         }
-
-
 
     }
 }

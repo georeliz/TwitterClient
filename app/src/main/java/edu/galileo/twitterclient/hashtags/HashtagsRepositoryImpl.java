@@ -56,8 +56,8 @@ public class HashtagsRepositoryImpl implements HashtagsRepository {
                 }
                 Collections.sort(items, new Comparator<Hashtag>() {
                     @Override
-                    public int compare(Hashtag image, Hashtag t1) {
-                        return t1.getFavoriteCount() - image.getFavoriteCount();
+                    public int compare(Hashtag hashtag, Hashtag t1) {
+                        return t1.getFavoriteCount() - hashtag.getFavoriteCount();
                     }
                 });
                 post(items);
@@ -90,6 +90,7 @@ public class HashtagsRepositoryImpl implements HashtagsRepository {
     private void post(List<Hashtag> items, String error){
         HashtagsEvent event = new HashtagsEvent();
         event.setError(error);
+        event.setHashtags(items);
         eventBus.post(event);
     }
 }
